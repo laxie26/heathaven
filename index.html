@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TEMPERATURE CONVERTER WEBSITE</title>
+    <style>
+        *{
+            color:white;        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 10;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color:black;
+            padding: 20px;
+            border-radius: 30px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        input[type="radio"] {
+            margin-right: 5px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: black;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>TEMPERATURE CONVERTER WEBSITE</h1>
+        <form id="temperature-form">
+            <label for="inputType">Select Input Measurement:</label><br>
+            <br>
+            <input type="radio" name="inputType" value="celsius" id="celsius"> <label for="celsius">Celsius</label><br><br>
+            <input type="radio" name="inputType" value="fahrenheit" id="fahrenheit"> <label for="fahrenheit">Fahrenheit</label><br><br>
+            <input type="radio" name="inputType" value="kelvin" id="kelvin"> <label for="kelvin">Kelvin</label><br><br>
+
+            <br>
+
+            <label for="outputType">Select Output Measurement:</label><br><br>
+            <input type="radio" name="outputType" value="celsius" id="outputCelsius"> <label for="outputCelsius">Celsius</label>
+            <br/><br>
+            <input type="radio" name="outputType" value="fahrenheit" id="outputFahrenheit"> <label for="outputFahrenheit">Fahrenheit</label>
+          <br> <br/> <input type="radio" name="outputType" value="kelvin" id="outputKelvin"> <label for="outputKelvin">Kelvin</label>
+        <br>
+            <br>
+
+            <label for="temperature">Enter Temperature:</label>
+            <input type="number" id="temperature" required>
+<br>
+            <button type="button" id="convertButton">Convert</button>
+        </form>
+
+        <div id="result"></div>
+    </div>
+
+    <script>
+        document.getElementById("convertButton").addEventListener("focus", function () {
+            // Get selected input and output types
+            const inputType = document.querySelector('input[name="inputType"]:checked').value;
+            const outputType = document.querySelector('input[name="outputType"]:checked').value;
+            
+            // Get the input temperature
+            const temperature = parseFloat(document.getElementById("temperature").value);
+
+            // Perform the temperature conversion
+            let result;
+
+            if (inputType === "celsius" && outputType === "fahrenheit") {
+                result = (temperature * 9/5) + 32;
+            } else if (inputType === "fahrenheit" && outputType === "celsius") {
+                result = (temperature - 32) * 5/9;
+            } else if (inputType === "celsius" && outputType === "kelvin") {
+                result = temperature + 273.15;
+            } else if (inputType === "kelvin" && outputType === "celsius") {
+                result = temperature - 273.15;
+            } else if (inputType === "fahrenheit" && outputType === "kelvin") {
+                result = (temperature - 32) * 5/9 + 273.15;
+            } else if (inputType === "kelvin" && outputType === "fahrenheit") {
+                result = (temperature - 273.15) * 9/5 + 32;
+            } else {
+                result = temperature; // If input and output types are the same, no conversion needed.
+            }
+
+            document.getElementById("result").innerHTML = `Result: ${result.toFixed(2)} ${outputType}`;
+        });
+    </script>
+</body>
+</html>
